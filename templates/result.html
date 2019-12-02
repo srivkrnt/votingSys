@@ -1,0 +1,36 @@
+<<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <title>Result</title>
+  </head>
+  <body style="background-color:pink">
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">EVote</a></div>
+      </nav>
+    <div class="container">
+      <h1 style="color:Black;">Aam Aadmi Party - {{result[0][1]}} votes</h1>
+      <img src="{{url_for('static', filename='images/arvind.jpg')}}" class="img-circle" width="120px" height="120px">
+      <br><br>
+
+
+      <h1 style="color:Black;">Congress - {{result[1][1]}} votes</h1>
+      <img src="{{url_for('static', filename='images/rahul.jpg')}}" class="img-circle" width="120px" height="120px">
+      <br><br>
+
+      <h1 style="color:Black;">Bharatiya Janata party- {{result[2][1]}} votes</h1>
+      <img src="{{url_for('static', filename='images/modi.jpg')}}" class="img-circle" width="120px" height="120px">
+
+      <br><br>
+
+      <h1 style="color:Black;">All India Trinamool Congress - {{result[3][1]}} votes</h1>
+      <img src="{{url_for('static', filename='images/mimi.jpg')}}" class="img-circle" width="120px" height="120px">
+    </div>
+
+  </body>
+</html>
