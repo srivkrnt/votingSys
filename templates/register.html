@@ -14,6 +14,16 @@
   <strong>warning!</strong> {{alert_message}}
 </div>
 {% endif %}
+<!-- <form action = "http://localhost:8080/add/voter" method = "POST">
+   <p>Name <input type = "text" name = "name" /></p>
+   <p>Username <input type = "text" name = "username" /></p>
+   <p>Password <input type = "password" name = "password" /></p>
+   <p>Age <input type = "text" name = "age" /></p>
+   <p>Phone <input type = "text" name = "phone" /></p>
+   <p>Aadhar Number <input type ="text" name = "aadharNumber" /></p>
+   <p>Address <input type ="text" name = "address" /></p>
+   <p><input type = "submit" value = "submit" /></p>
+</form> -->
 
 <div class="wrapper fadeInDown">
   <div id="formContent">
@@ -23,7 +33,7 @@
       <strong>Danger!</strong> Wrong Details
     </div>
     {% endif %}
-    <form action = "/add/voter" method = "POST">
+    <form action = "http://localhost:8080/add/voter" method = "POST">
       <input type="text" id="name" class="fadeIn second" name="name" placeholder="Name">
       <input type="text" id="username" class="fadeIn third" name="username" placeholder="Username">
       <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password">
