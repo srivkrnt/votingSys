@@ -1,11 +1,16 @@
 from random import randint
 import requests
+import os.path, sys
+sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir))
 from services import bridge, aadharService
-db = bridge.get_db()
-Voter = bridge.get_voter_model()
-Message = bridge.get_message_model()
-Votes = bridge.get_votes_model()
-Log = bridge.get_log_model()
+from __init__ import getClasses, getDb
+db = getDb()
+Voter, Message, Votes, Log = getClasses()
+# db = bridge.get_db()
+# #Voter = bridge.get_voter_model()
+# Message = bridge.get_message_model()
+# Votes = bridge.get_votes_model()
+# Log = bridge.get_log_model()
 
 def build_voter_data(voter):
     if voter is None:
