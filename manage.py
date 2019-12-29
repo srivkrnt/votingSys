@@ -144,7 +144,7 @@ def result():
 @app.route('/profile')
 def profile():
     return render_template('profile.html')
-    
+
 @app.route('/login')
 def login():
     return render_template('login.html')
@@ -156,4 +156,4 @@ def logout():
 
 if __name__ == "__main__":
     db.create_all()
-    app.run(host='0.0.0.0', port=8080,debug=True)
+    app.run(host='0.0.0.0', port=8080)
