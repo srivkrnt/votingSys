@@ -1,11 +1,24 @@
 from random import randint
 import requests
 from services import bridge, aadharService
+from twilio.rest import Client
+
 db = bridge.get_db()
 Voter = bridge.get_voter_model()
 Message = bridge.get_message_model()
 Votes = bridge.get_votes_model()
 Log = bridge.get_log_model()
+
+
+def send(msg, mobile_no):
+    account_sid = "ACf0e8f8cdb24af3574d11fcc288be6d2d"
+    auth_token = "514de3f8d836622f076b67e8dcc2a975"
+    client = Client(account_sid, auth_token)
+    
+    message = client.messages.create(
+	    to='+91' + mobile_no, 
+	    from_="+18144202724",
+	    body=msg)
 
 def build_voter_data(voter):
     if voter is None:
@@ -119,18 +132,24 @@ def send_otp(username):
     authkey = "269393AWPvsvkheywo5c9a45a6"
     message = "Otp for casting vote is - %s " % (otp)
 
-    endPoint = "https://api.msg91.com/api/sendhttp.php?route=4&sender=VOTEIN&message=%s&country=91&mobiles=%s&authkey=%s" % (message, phone, authkey)
-    response = requests.get(endPoint)
-    if response.status_code == 200:
-        save_otp_to_message_log(phone, otp)
-        return {"success" : "OTP sent"}
-    else:
-        return {"failure" : "check Details"}
+    # endPoint = "https://api.msg91.com/api/sendhttp.php?route=4&sender=VOTEIN&message=%s&country=91&mobiles=%s&authkey=%s" % (message, phone, authkey)
+    # response = requests.get(endPoint)
+    send(otp, phone)
+    save_otp_to_message_log(phone, otp)
+    return {"success" : "OTP sent"}
+    
+    # if response.status_code == 200:
+    #     save_otp_to_message_log(phone, otp)
+    #     return {"success" : "OTP sent"}
+    # else:
+    #     return {"failure" : "check Details"}
 
 def send_message(username, message):
     phone = get_phone_by_username(username)
-    authkey = "269393AWPvsvkheywo5c9a45a6"
-    endPoint = "https://api.msg91.com/api/sendhttp.php?route=4&sender=VOTEIN&message=%s&country=91&mobiles=%s&authkey=%s" % (message, phone, authkey)
+    # authkey = "269393AWPvsvkheywo5c9a45a6"
+    # endPoint = "https://api.msg91.com/api/sendhttp.php?route=4&sender=VOTEIN&message=%s&country=91&mobiles=%s&authkey=%s" % (message, phone, authkey)
+    send(message, phone)
+    return {"success" : "Message sent"},200
     response = requests.get(endPoint)
     if response.status_code == 200:
         return {"success" : "Message sent"},200
@@ -138,11 +157,13 @@ def send_message(username, message):
         return {"failure" : "Something went wrong"},400
 
 def verify_otp(otp, phone):
+    print("flow getting to verify otp function")
     last_record = Message.query.filter_by(phone=phone).all()
     if len(last_record) == 0:
         return False
     last_record = last_record[-1]
     message = build_message_data(last_record)
+    print(message)
     if message['otp'] == otp:
         return True
     else:
